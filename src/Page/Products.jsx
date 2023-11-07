@@ -1,40 +1,57 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { SearchProducts, fetchProducts } from '../redux/ProductSlice';
-import { Button, Container, FormControl, InputLabel, MenuItem, Select, Stack, Typography } from '@mui/material';
-import ProductItem from '../components/ProductItem'
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { SearchProducts, fetchProducts } from "../redux/ProductSlice";
+import {
+  Container,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Stack,
+  Typography,
+} from "@mui/material";
+import ProductItem from "../components/ProductItem";
 const Products = () => {
+  const Products = useSelector((state) => state.Product.Products);
+  const ProductStatus = useSelector((state) => state.Product.status);
+  const ProductError = useSelector((state) => state.Product.error);
+  const dispatch = useDispatch();
 
-  const Products=useSelector(state=>state.Product.Products)
-  const ProductStatus=useSelector(state=>state.Product.status)
-  const ProductError=useSelector(state=>state.Product.error)
-  const dispatch=useDispatch()
-
-  useEffect(()=>{
-    if(ProductStatus==='idle'){
-      dispatch(fetchProducts())
+  useEffect(() => {
+    if (ProductStatus === "idle") {
+      dispatch(fetchProducts());
     }
-  },[ProductStatus,dispatch])
+  }, [ProductStatus, dispatch]);
 
-  let content
+  let content;
 
-  if (ProductStatus === 'loading') {
-    content = <Typography variant='subtitle2' p={2}>Loading....</Typography>
-  } else if (ProductStatus === 'succeeded') {
-    content = Products.map(product=><ProductItem product={product} key={product.id}/>)
-  } else if (ProductStatus === 'failed') {
-    content = <Typography variant='subtitle2' color={'red'} p={2}>{ProductError}</Typography>
+  if (ProductStatus === "loading") {
+    content = (
+      <Typography variant="subtitle2" p={2}>
+        Loading....
+      </Typography>
+    );
+  } else if (ProductStatus === "succeeded") {
+    content = Products.map((product) => (
+      <ProductItem product={product} key={product.id} />
+    ));
+  } else if (ProductStatus === "failed") {
+    content = (
+      <Typography variant="subtitle2" color={"red"} p={2}>
+        {ProductError}
+      </Typography>
+    );
   }
 
   return (
     <Container>
-      <FormControl sx={{m:'20px 25px',width:200}}>
-        <InputLabel id='category'>Category</InputLabel>
-        <Select 
-        labelId='category'
+      <FormControl sx={{ m: "20px 25px", width: 200 }}>
+        <InputLabel id="category">Category</InputLabel>
+        <Select
+          labelId="category"
           label="Category"
           defaultValue={""}
-          onChange={(e)=>dispatch(SearchProducts(e.target.value))}
+          onChange={(e) => dispatch(SearchProducts(e.target.value))}
         >
           <MenuItem value="" disabled></MenuItem>
           <MenuItem value="electronics">electronics</MenuItem>
@@ -43,11 +60,17 @@ const Products = () => {
           <MenuItem value="women's clothing">women's clothing</MenuItem>
         </Select>
       </FormControl>
-      <Stack direction={'row'} p={'10px 0'} flexWrap={'wrap'} justifyContent={'center'} gap={1}>
+      <Stack
+        direction={"row"}
+        p={"10px 0"}
+        flexWrap={"wrap"}
+        justifyContent={"center"}
+        gap={1}
+      >
         {content}
       </Stack>
     </Container>
-  )
-}
+  );
+};
 
-export default Products
+export default Products;
