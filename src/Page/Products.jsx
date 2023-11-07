@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchProducts } from '../redux/ProductSlice';
-import { Container, Stack, Typography } from '@mui/material';
+import { SearchProducts, fetchProducts } from '../redux/ProductSlice';
+import { Button, Container, FormControl, InputLabel, MenuItem, Select, Stack, Typography } from '@mui/material';
 import ProductItem from '../components/ProductItem'
 const Products = () => {
 
@@ -28,6 +28,21 @@ const Products = () => {
 
   return (
     <Container>
+      <FormControl sx={{m:'20px 25px',width:200}}>
+        <InputLabel id='category'>Category</InputLabel>
+        <Select 
+        labelId='category'
+          label="Category"
+          defaultValue={""}
+          onChange={(e)=>dispatch(SearchProducts(e.target.value))}
+        >
+          <MenuItem value="" disabled></MenuItem>
+          <MenuItem value="electronics">electronics</MenuItem>
+          <MenuItem value="jewelery">jewelery</MenuItem>
+          <MenuItem value="men's clothing">men's clothing</MenuItem>
+          <MenuItem value="women's clothing">women's clothing</MenuItem>
+        </Select>
+      </FormControl>
       <Stack direction={'row'} p={'10px 0'} flexWrap={'wrap'} justifyContent={'center'} gap={1}>
         {content}
       </Stack>
