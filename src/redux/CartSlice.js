@@ -11,25 +11,28 @@ const CartSlice=createSlice({
     reducers:{
       //products adding to cart
       AddCart:(state,action)=>{
+        const Data={
+          product:action.payload,
+          //random id 
+          id:nanoid(),
+          quantity:1
+        }
+        if(state.value.length){
         //checking Existing Products with product id 
-        const ExistingProduct=state.value.some(product=>product.id===action.payload.id)
-        console.log(action.payload.id);
-        console.log(ExistingProduct);
+        const ExistingProduct=state.value.find(product=>product.product.id===action.payload.id)
         if(ExistingProduct){
-          const ProductIndex=state.value.findIndex(product=>product.id===action.payload.id)
-          state.value[ProductIndex].quantity +=1
           alert("Product Already Added!")
         }
         else{
-          const Data={
-            product:action.payload,
-            //random id 
-            id:nanoid(),
-            quantity:1
-          }
           state.value.push(Data)
           alert("Product Added!")
         }
+        }
+        else{
+          state.value.push(Data)
+          alert("Product Added!")
+        }
+  
       },
       //delete Product from Cart Store
       RemoveCart:(state,action)=>{
