@@ -21,7 +21,7 @@ const Products = () => {
 
   if (ProductStatus === "loading") {
     content = (
-      <Typography variant="subtitle2" p={2}>
+      <Typography  component={'p'} color={'primary.main'} p={2}>
         Loading....
       </Typography>
     );

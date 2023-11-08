@@ -20,7 +20,7 @@ const ProductItem = ({ product }) => {
         component={"img"}
         width={"100px"}
         height={"150px"}
-        sx={{ objectFit: "contain", pt: 1,}}
+        sx={{ objectFit: "contain", pt: 1,bgcolor:'background.default'}}
         image={product.image}
       />
       <CardContent>
