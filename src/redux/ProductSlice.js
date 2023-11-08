@@ -1,7 +1,5 @@
 import { createAsyncThunk, createSlice,createEntityAdapter } from "@reduxjs/toolkit";
 import axios from "axios";
-
-
 const Products=createEntityAdapter({
   selectId:(product)=>product.id
 })
@@ -31,6 +29,7 @@ const ProductSlice = createSlice({
   initialState:Products.getInitialState({
     status: "idle", // idle | 'loading' | 'succeeded' | 'failed',
     error: null,
+    AllProducts:[]
   }),
   reducers: {},
   extraReducers(builder) {
@@ -42,6 +41,8 @@ const ProductSlice = createSlice({
         state.status = "succeeded";
         // Add any fetched Products to the array
         Products.upsertMany(state,action.payload)
+        //Duplicating the Product List
+        state.AllProducts=state.AllProducts.concat(action.payload)
       })
       .addCase(fetchProducts.rejected, (state, action) => {
         state.status = "failed";

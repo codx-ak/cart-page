@@ -17,7 +17,7 @@ const CartItem = ({ CartProduct }) => {
   const dispatch = useDispatch();
 
   //All Product Data Get from Cart Duplicate Products List
-  let product = useSelector(state=>state.Cart.Products);
+  let product = useSelector(state=>state.Product.AllProducts);
 
   //Get Product Filtered By Id
   product=product.find(product=>product.id===CartProduct.productId)

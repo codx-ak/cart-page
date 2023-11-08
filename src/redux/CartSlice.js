@@ -1,28 +1,15 @@
 import {
   createSlice,
   createEntityAdapter,
-  createAsyncThunk,
 } from "@reduxjs/toolkit";
-import axios from "axios";
 
 const Cart = createEntityAdapter({
   selectId: (product) => product.productId,
 });
 
-//fetching All Products and  Store to cart Store
-export const fetchProductstoCart = createAsyncThunk("cart/AllProducts", async () => {
-  const response = await axios.get("https://fakestoreapi.com/products");
-  return response.data;
-});
-
 const CartSlice = createSlice({
   name: "Cart",
-  initialState: Cart.getInitialState({
-    status: "idle", // idle | 'loading' | 'succeeded' | 'failed',
-    error: null,
-    //All Products List Duplicate
-    Products: [],
-  }),
+  initialState: Cart.getInitialState(),
   reducers: {
     //products adding to cart
     AddCart: (state, action) => {
@@ -57,20 +44,7 @@ const CartSlice = createSlice({
       };
       Cart.upsertOne(state, Data);
     },
-  },
-  extraReducers(builder) {
-    builder
-      .addCase(fetchProductstoCart.pending, (state, action) => {
-        state.status = "loading";
-      })
-      .addCase(fetchProductstoCart.fulfilled, (state, action) => {
-        state.Products = state.Products.concat(action.payload);
-      })
-      .addCase(fetchProductstoCart.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.error.message;
-      });
-  },
+  }
 });
 
 //secting All Cart Products
@@ -78,6 +52,6 @@ export const { selectAll: selectAllCart } = Cart.getSelectors(
   (state) => state.Cart
 );
 
-export const { AddCart, RemoveCart, IncrementQty, DecrementQty } =
+export const { AddCart, RemoveCart, IncrementQty, DecrementQty} =
   CartSlice.actions;
 export default CartSlice.reducer;
