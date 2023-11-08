@@ -3,8 +3,9 @@ import React from "react";
 import { BsFillHandbagFill } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { selectAllCart } from "../redux/CartSlice";
 const NavBar = () => {
-  const Cart = useSelector((state) => state.Cart.value);
+  const Cart = useSelector(selectAllCart);
   return (
     <AppBar position="sticky">
       <Toolbar>

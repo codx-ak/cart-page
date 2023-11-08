@@ -55,7 +55,7 @@ const ProductItem = ({ product }) => {
         <Button
           type="button"
           variant="outlined"
-          onClick={() => dispatch(AddCart(product))}
+          onClick={() => dispatch(AddCart(product.id))}
           fullWidth
           startIcon={<BiSolidCart />}
         >

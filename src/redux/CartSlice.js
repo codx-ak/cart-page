@@ -1,61 +1,57 @@
-import { createSlice, nanoid } from "@reduxjs/toolkit";
+import { createSlice, nanoid,createEntityAdapter } from "@reduxjs/toolkit";
 
-const initialState = {
-  //initial State value
-  value: [],
-};
+
+const Cart=createEntityAdapter({
+  selectId:(product)=>product.id
+})
 
 const CartSlice = createSlice({
   name: "Cart",
-  initialState,
+  initialState:Cart.getInitialState(),
   reducers: {
     //products adding to cart
     AddCart: (state, action) => {
       const Data = {
-        product: action.payload,
+        productId: action.payload,
         //random id
         id: nanoid(),
         quantity: 1,
       };
-      if (state.value.length) {
-        //checking Existing Products with product id
-        const ExistingProduct = state.value.find(
-          (product) => product.product.id === action.payload.id
-        );
-        if (ExistingProduct) {
-          alert("Product Already Added!");
-        } else {
-          state.value.push(Data);
-          alert("Product Added!");
-        }
-      } else {
-        state.value.push(Data);
-        alert("Product Added!");
-      }
+      Cart.addOne(state,Data)
+      alert("Product Added!");
+      
     },
+
     //delete Product from Cart Store
     RemoveCart: (state, action) => {
-      const ProductIndex = state.value.findIndex(
-        (product) => product.id === action.payload
-      );
-      state.value.splice(ProductIndex, 1);
+      Cart.removeOne(state,action.payload)
       alert("Product  Deleted!");
     },
 
+    //increase the Product quantity
     IncrementQty: (state, action) => {
-      const ProductIndex = state.value.findIndex(
-        (product) => product.id === action.payload
-      );
-      state.value[ProductIndex].quantity += 1;
+      const Data={
+        ...action.payload,
+        quantity: action.payload.quantity+1
+      }
+      Cart.upsertOne(state,Data)
+      
     },
+
+    //Decrease the Product quantity
     DecrementQty: (state, action) => {
-      const ProductIndex = state.value.findIndex(
-        (product) => product.id === action.payload
-      );
-      state.value[ProductIndex].quantity -= 1;
+      const Data={
+        ...action.payload,
+        quantity: action.payload.quantity-1
+      }
+      Cart.upsertOne(state,Data)
+
     },
   },
 });
+
+//secting All Cart Products 
+export const {selectAll:selectAllCart}=Cart.getSelectors(state=>state.Cart)
 
 export const { AddCart, RemoveCart, IncrementQty, DecrementQty } =
   CartSlice.actions;

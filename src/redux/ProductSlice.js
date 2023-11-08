@@ -63,7 +63,7 @@ const ProductSlice = createSlice({
   },
 });
 
-//selecting all Products
-export const {selectAll:selectAllProducts }=Products.getSelectors(state=>state.Product)
+//selecting all Products and Selected By id products
+export const {selectAll:selectAllProducts,selectById:selectByProductId }=Products.getSelectors(state=>state.Product)
 
 export default ProductSlice.reducer;

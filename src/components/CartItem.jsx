@@ -8,12 +8,15 @@ import {
   Typography,
 } from "@mui/material";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { DecrementQty, IncrementQty, RemoveCart } from "../redux/CartSlice";
 import { MdOutlineClear } from "react-icons/md";
+import {selectByProductId} from '../redux/ProductSlice'
 const CartItem = ({ CartProduct }) => {
-  const product = CartProduct.product;
+
   const dispatch = useDispatch();
+  //product Data fetch by Product ID
+  const product = useSelector(state=>selectByProductId(state,CartProduct.productId));
 
   return (
     <Card
@@ -85,7 +88,7 @@ const CartItem = ({ CartProduct }) => {
           <IconButton
             size="small"
             color="secondary"
-            onClick={() => dispatch(IncrementQty(CartProduct.id))}
+            onClick={() => dispatch(IncrementQty(CartProduct))}
           >
             <AiOutlinePlus />
           </IconButton>
@@ -96,7 +99,7 @@ const CartItem = ({ CartProduct }) => {
             size="small"
             color="secondary"
             disabled={CartProduct.quantity <= 1}
-            onClick={() => dispatch(DecrementQty(CartProduct.id))}
+            onClick={() => dispatch(DecrementQty(CartProduct))}
           >
             <AiOutlineMinus />
           </IconButton>
