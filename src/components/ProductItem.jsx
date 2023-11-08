@@ -20,7 +20,7 @@ const ProductItem = ({ product }) => {
         component={"img"}
         width={"100px"}
         height={"150px"}
-        sx={{ objectFit: "contain", pt: 1 }}
+        sx={{ objectFit: "contain", pt: 1,}}
         image={product.image}
       />
       <CardContent>
@@ -57,6 +57,7 @@ const ProductItem = ({ product }) => {
           variant="outlined"
           onClick={() => dispatch(AddCart(product.id))}
           fullWidth
+          color="inherit"
           startIcon={<BiSolidCart />}
         >
           Add to Cart

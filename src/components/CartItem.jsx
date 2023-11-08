@@ -16,7 +16,7 @@ import { MdOutlineClear } from "react-icons/md";
 const CartItem = ({ CartProduct }) => {
   const dispatch = useDispatch();
 
-  //All Product Data Get from Cart Duplicate Products List
+  //All Product Data Get from  Duplicate Products List
   let product = useSelector(state=>state.Product.AllProducts);
 
   //Get Product Filtered By Id

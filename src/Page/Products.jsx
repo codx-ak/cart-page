@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { SearchProducts,selectAllProducts} from "../redux/ProductSlice";
 import {
+  Box,
   Container,
   FormControl,
   InputLabel,
@@ -16,7 +17,6 @@ const Products = () => {
   const ProductStatus = useSelector((state) => state.Product.status);
   const ProductError = useSelector((state) => state.Product.error);
   const dispatch = useDispatch();
-
   let content;
 
   if (ProductStatus === "loading") {
@@ -38,6 +38,7 @@ const Products = () => {
   }
 
   return (
+    <Box component={'section'} sx={{bgcolor:'background.default',minHeight:'100vh'}}>
     <Container>
       <FormControl sx={{ marginLeft:{xs:4,md:0},mt:2, width:{xs:280,md:250} }}>
         <InputLabel id="category">Category</InputLabel>
@@ -64,6 +65,7 @@ const Products = () => {
         {content}
       </Stack>
     </Container>
+    </Box>
   );
 };
 

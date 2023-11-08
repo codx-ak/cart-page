@@ -2,11 +2,19 @@ import React from 'react'
 import Layout from './routes/Layout'
 import { Provider } from 'react-redux'
 import { store } from './redux/config'
+import Theme from './components/Theme'
+
+
+
+
 
 const App = () => {
+  
   return (
     <Provider store={store}>
-      <Layout/>
+      <Theme>
+      <Layout />
+      </Theme>
     </Provider>
   )
 }
