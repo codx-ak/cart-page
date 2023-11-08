@@ -2,6 +2,7 @@ import {
   Card,
   CardContent,
   CardMedia,
+  FormControlLabel,
   IconButton,
   Rating,
   Stack,
@@ -11,13 +12,15 @@ import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { DecrementQty, IncrementQty, RemoveCart } from "../redux/CartSlice";
 import { MdOutlineClear } from "react-icons/md";
-import {selectByProductId} from '../redux/ProductSlice'
+
 const CartItem = ({ CartProduct }) => {
-
   const dispatch = useDispatch();
-  //product Data fetch by Product ID
-  const product = useSelector(state=>selectByProductId(state,CartProduct.productId));
 
+  //All Product Data Get from Cart Duplicate Products List
+  let product = useSelector(state=>state.Cart.Products);
+
+  //Get Product Filtered By Id
+  product=product.find(product=>product.id===CartProduct.productId)
   return (
     <Card
       variant="outlined"
@@ -36,7 +39,7 @@ const CartItem = ({ CartProduct }) => {
         width={'100px'}
         height={"90px"}
         sx={{ objectFit: "contain", width: { xs: 100, md: 150 } }}
-        image={product.image}
+        image={product?.image}
       />
       {/* product content  */}
       <CardContent sx={{ width: "60%" }}>
@@ -55,7 +58,7 @@ const CartItem = ({ CartProduct }) => {
           color={"gray"}
           fontSize={{ xs: 12, md: 14 }}
         >
-          {product.category}
+          {product?.category}
         </Typography>
         <Typography
           variant="h6"
@@ -64,18 +67,18 @@ const CartItem = ({ CartProduct }) => {
           overflow={"hidden"}
           whiteSpace={"nowrap"}
         >
-          {product.title}
+          {product?.title}
         </Typography>
         <Stack direction={"row"} pb={1} justifyContent={"space-between"}>
           <Typography variant="subtitle2" color={"gray"}>
-            $. {product.price}
+            $. {product?.price}
           </Typography>
-          <Rating
+          <FormControlLabel value={product?.rating.rate} control={<Rating
             size="small"
             readOnly
-            value={product.rating.rate}
             precision={0.5}
-          />
+          />}/>
+          
         </Stack>
         <Stack
           direction={"row"}

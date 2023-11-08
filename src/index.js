@@ -6,8 +6,11 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { store } from './redux/config';
 import { fetchProducts } from './redux/ProductSlice';
+import { fetchProductstoCart } from './redux/CartSlice';
 
+//default Products Fetch dispatch
 store.dispatch(fetchProducts())
+store.dispatch(fetchProductstoCart())
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
