@@ -1,8 +1,8 @@
-import { createSlice, nanoid,createEntityAdapter } from "@reduxjs/toolkit";
+import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
 
 
 const Cart=createEntityAdapter({
-  selectId:(product)=>product.id
+  selectId:(product)=>product.productId
 })
 
 const CartSlice = createSlice({
@@ -13,8 +13,6 @@ const CartSlice = createSlice({
     AddCart: (state, action) => {
       const Data = {
         productId: action.payload,
-        //random id
-        id: nanoid(),
         quantity: 1,
       };
       Cart.addOne(state,Data)

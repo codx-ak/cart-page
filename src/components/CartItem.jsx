@@ -44,7 +44,7 @@ const CartItem = ({ CartProduct }) => {
           <IconButton
             size="small"
             color="error"
-            onClick={() => dispatch(RemoveCart(CartProduct.id))}
+            onClick={() => dispatch(RemoveCart(CartProduct.productId))}
           >
             <MdOutlineClear />
           </IconButton>

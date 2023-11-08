@@ -29,7 +29,7 @@ export const SearchProducts = createAsyncThunk(
 const ProductSlice = createSlice({
   name: "Product",
   initialState:Products.getInitialState({
-    status: "idle", // | 'loading' | 'succeeded' | 'failed',
+    status: "idle", // idle | 'loading' | 'succeeded' | 'failed',
     error: null,
   }),
   reducers: {},

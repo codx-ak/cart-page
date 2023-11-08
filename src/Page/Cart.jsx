@@ -12,7 +12,7 @@ const Cart = () => {
       <Stack direction={"column"} gap={1} p={2} alignItems={"center"}>
         {CartProducts?.length ? (
           CartProducts.map((product) => (
-            <CartItem CartProduct={product} key={product.id} />
+            <CartItem CartProduct={product} key={product.productId} />
           ))
         ) : (
           <>
