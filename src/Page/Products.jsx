@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { SearchProducts, fetchProducts } from "../redux/ProductSlice";
+import { SearchProducts,selectAllProducts} from "../redux/ProductSlice";
 import {
   Container,
   FormControl,
@@ -12,16 +12,10 @@ import {
 } from "@mui/material";
 import ProductItem from "../components/ProductItem";
 const Products = () => {
-  const Products = useSelector((state) => state.Product.Products);
+  const Products = useSelector(selectAllProducts);
   const ProductStatus = useSelector((state) => state.Product.status);
   const ProductError = useSelector((state) => state.Product.error);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (ProductStatus === "idle") {
-      dispatch(fetchProducts());
-    }
-  }, [ProductStatus, dispatch]);
 
   let content;
 
@@ -32,7 +26,7 @@ const Products = () => {
       </Typography>
     );
   } else if (ProductStatus === "succeeded") {
-    content = Products.map((product) => (
+    content = Products?.map((product) => (
       <ProductItem product={product} key={product.id} />
     ));
   } else if (ProductStatus === "failed") {

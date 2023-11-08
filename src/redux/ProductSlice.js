@@ -1,12 +1,10 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice,createEntityAdapter } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const initialState = {
-  //initial state
-  Products: [],
-  status: "idle", // | 'loading' | 'succeeded' | 'failed',
-  error: null,
-};
+
+const Products=createEntityAdapter({
+  selectId:(product)=>product.id
+})
 
 // Getting Products Data with API
 export const fetchProducts = createAsyncThunk(
@@ -30,7 +28,10 @@ export const SearchProducts = createAsyncThunk(
 
 const ProductSlice = createSlice({
   name: "Product",
-  initialState,
+  initialState:Products.getInitialState({
+    status: "idle", // | 'loading' | 'succeeded' | 'failed',
+    error: null,
+  }),
   reducers: {},
   extraReducers(builder) {
     builder
@@ -40,7 +41,7 @@ const ProductSlice = createSlice({
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.status = "succeeded";
         // Add any fetched Products to the array
-        state.Products = state.Products.concat(action.payload);
+        Products.upsertMany(state,action.payload)
       })
       .addCase(fetchProducts.rejected, (state, action) => {
         state.status = "failed";
@@ -52,8 +53,8 @@ const ProductSlice = createSlice({
       })
       .addCase(SearchProducts.fulfilled, (state, action) => {
         state.status = "succeeded";
-        // Add any fetched Products to the array
-        state.Products = action.payload;
+        // Replace fetched Products to the array
+        Products.setAll(state,action.payload)
       })
       .addCase(SearchProducts.rejected, (state, action) => {
         state.status = "failed";
@@ -61,5 +62,8 @@ const ProductSlice = createSlice({
       });
   },
 });
+
+//selecting all Products
+export const {selectAll:selectAllProducts }=Products.getSelectors(state=>state.Product)
 
 export default ProductSlice.reducer;
