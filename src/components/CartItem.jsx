@@ -22,7 +22,7 @@ const CartItem = ({ CartProduct }) => {
     <Card
       variant="outlined"
       sx={{
-        width: { sm: 300, md: 500 },
+        width: { xs: 300, md: 500 },
         height: 150,
         display: "flex",
         overflow: "hidden",
@@ -33,8 +33,9 @@ const CartItem = ({ CartProduct }) => {
       {/* Product Image  */}
       <CardMedia
         component={"img"}
+        width={'100px'}
         height={"90px"}
-        sx={{ objectFit: "contain", width: { sm: 100, md: 150 } }}
+        sx={{ objectFit: "contain", width: { xs: 100, md: 150 } }}
         image={product.image}
       />
       {/* product content  */}
@@ -52,7 +53,7 @@ const CartItem = ({ CartProduct }) => {
         <Typography
           variant="subtitle2"
           color={"gray"}
-          fontSize={{ sm: 12, md: 14 }}
+          fontSize={{ xs: 12, md: 14 }}
         >
           {product.category}
         </Typography>

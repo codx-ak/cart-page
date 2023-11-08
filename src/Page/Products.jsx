@@ -39,7 +39,7 @@ const Products = () => {
 
   return (
     <Container>
-      <FormControl sx={{ m: "20px 25px", width: 200 }}>
+      <FormControl sx={{ marginLeft:{xs:4,md:0},mt:2, width:{xs:280,md:250} }}>
         <InputLabel id="category">Category</InputLabel>
         <Select
           labelId="category"

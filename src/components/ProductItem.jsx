@@ -18,7 +18,7 @@ const ProductItem = ({ product }) => {
     <Card variant="outlined" sx={{ width: 280, height: 300 }}>
       <CardMedia
         component={"img"}
-        width={"100%"}
+        width={"100px"}
         height={"150px"}
         sx={{ objectFit: "contain", pt: 1 }}
         image={product.image}
@@ -27,14 +27,14 @@ const ProductItem = ({ product }) => {
         <Typography
           variant="subtitle2"
           color={"gray"}
-          fontSize={{ sm: 12, md: 14 }}
+          fontSize={{ xs: 12, md: 14 }}
         >
           {product.category}
         </Typography>
         <Typography
           variant="h6"
           textOverflow={"ellipsis"}
-          fontSize={{ sm: 14, md: 16 }}
+          fontSize={{ xs: 14, md: 16 }}
           overflow={"hidden"}
           whiteSpace={"nowrap"}
         >
